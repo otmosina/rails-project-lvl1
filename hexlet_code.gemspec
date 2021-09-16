@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.summary       = "hexlet task1"
   spec.description   = "hexlet task1: simple form analog"
   spec.homepage      = "https://hexlet.io"
-  spec.required_ruby_version = ">= 2.4.0"
+  spec.required_ruby_version = ">= 2.7.0"
 
   spec.metadata["allowed_push_host"] = "https://hexlet.io"
 
