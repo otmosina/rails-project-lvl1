@@ -7,6 +7,9 @@ module HexletCode
 
   # Class to generate html tags
   class Tag
+
+
+
     def self.build(name, **attrs)
       html = "<#{name}"
       attrs.each_pair do |k, v|
