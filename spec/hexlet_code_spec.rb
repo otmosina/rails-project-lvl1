@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
+User = Struct.new(:name, :job, :gender, keyword_init: true)
 RSpec.describe HexletCode do
-  User = Struct.new(:name, :job, :gender, keyword_init: true)
   it "has a version number" do
     expect(HexletCode::VERSION).not_to be nil
   end
@@ -17,8 +17,8 @@ RSpec.describe HexletCode do
       expect(described_class.form_for(user, url: "/users")).to eq('<form action="/users" method="post"></form>')
     end
 
-    context 'comples form_for' do
-      let(:user) { User.new name: 'rob', job: 'hexlet', gender: 'm' }
+    context "comples form_for" do
+      let(:user) { User.new name: "rob", job: "hexlet", gender: "m" }
       let(:form) do
         HexletCode.form_for user do |f|
           f.input :name
@@ -31,13 +31,13 @@ RSpec.describe HexletCode do
         html += '<form action="#" method="post">'
         html += '<input type="text" value="rob" name="name">'
         html += '<textarea cols="20" rows="40" name="job">hexlet</textarea>'
-        
+
         html += '<select name="gender">'
         html += '<option value="m" selected>m</option>'
         html += '<option value="f">f</option>'
-        html += '</select>'      
-        
-        html += '</form>'
+        html += "</select>"
+
+        html += "</form>"
         html
       end
       it "return correct form" do
