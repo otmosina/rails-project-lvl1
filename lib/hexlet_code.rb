@@ -21,6 +21,8 @@ module HexletCode
 
     def input(name, **params)
       value = model.send name
+
+      @inner_html += Tag.build("label", for: name) { name.capitalize } if @@input_with_label
       @inner_html += case params[:as]
                      when :text
                        Tag.build("textarea", cols: "20", rows: "40", name: name) { value }
@@ -36,16 +38,13 @@ module HexletCode
                        end
                      else
 
-                       if @@input_with_label
-                         input_params = { type: "text", name: name, value: value }
-                         input_params.delete(:value) if value.nil?
-                         Tag.build("label", for: name) { name.capitalize } +
-                           Tag.build("input", **input_params)
-                       else
-                         input_params = { type: "text", value: value, name: name }
-                         input_params.delete(:value) if value.nil?
-                         Tag.build("input", **input_params)
-                       end
+                       input_params = if @@input_with_label
+                                        { type: "text", name: name, value: value }
+                                      else
+                                        { type: "text", value: value, name: name }
+                                      end
+                       input_params.delete(:value) if value.nil?
+                       Tag.build("input", **input_params)
                      end
     end
 
