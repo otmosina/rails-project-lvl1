@@ -5,6 +5,9 @@ require_relative "hexlet_code/version"
 module HexletCode
   class Error < StandardError; end
 
+  def self.form_for model, url: '#'
+    Tag.build('form', action: url, method: 'post') {}
+  end
   # Class to generate html tags
   class Tag
     def self.build(name, **attrs)
