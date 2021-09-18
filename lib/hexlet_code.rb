@@ -9,12 +9,10 @@ module HexletCode
   # class for make form object
   class Form
     @@input_with_label = true
-    def self.input_with_label= flag
+    def self.input_with_label=(flag)
       @@input_with_label = flag
     end
     attr_reader :model
-
-
 
     def initialize(model)
       @model = model
@@ -38,20 +36,20 @@ module HexletCode
                        end
                      else
 
-                      if @@input_with_label
-                        input_params = {type: "text", name: name, value: value}
-                        input_params.delete(:value) if value.nil?
-                        Tag.build("label", for: name) { name.capitalize } +
-                          Tag.build("input", **input_params)
-                      else
-                         input_params = {type: "text", value: value, name: name}
+                       if @@input_with_label
+                         input_params = { type: "text", name: name, value: value }
+                         input_params.delete(:value) if value.nil?
+                         Tag.build("label", for: name) { name.capitalize } +
+                           Tag.build("input", **input_params)
+                       else
+                         input_params = { type: "text", value: value, name: name }
                          input_params.delete(:value) if value.nil?
                          Tag.build("input", **input_params)
-                      end
-                    end
+                       end
+                     end
     end
 
-    def submit value="Save"
+    def submit(value = "Save")
       @inner_html += Tag.build("input", type: "submit", value: value, name: "commit")
     end
   end

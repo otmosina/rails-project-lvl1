@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-
 RSpec.describe HexletCode do
   it "has a version number" do
     expect(HexletCode::VERSION).not_to be nil
@@ -23,8 +22,8 @@ RSpec.describe HexletCode do
       end
       after do
         HexletCode::Form.input_with_label = true
-      end      
-      let(:user_struct)  { Struct.new(:name, :job, :gender, keyword_init: true) }
+      end
+      let(:user_struct) { Struct.new(:name, :job, :gender, keyword_init: true) }
       let(:user) { user_struct.new name: "rob", job: "hexlet", gender: "m" }
       let(:form) do
         HexletCode.form_for user do |f|
@@ -53,8 +52,8 @@ RSpec.describe HexletCode do
     end
 
     context "complex form_for with submit & labels" do
-      let(:user_struct)  { Struct.new(:name, :job, keyword_init: true) }
-      let(:user) { user_struct.new job: 'hexlet'}
+      let(:user_struct) { Struct.new(:name, :job, keyword_init: true) }
+      let(:user) { user_struct.new job: "hexlet" }
       let(:form) do
         HexletCode.form_for user do |f|
           f.input :name
@@ -77,6 +76,5 @@ RSpec.describe HexletCode do
         expect(form).to eq(form_html)
       end
     end
-
   end
 end
