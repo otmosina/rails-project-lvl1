@@ -23,17 +23,16 @@ module HexletCode
       value = model.send name
       input_params = params.dup
       input_params.delete(:as)
-      
+
       @inner_html += Tag.build("label", for: name) { name.capitalize } if @@input_with_label
       @inner_html += case params[:as]
-                      
+
                      when :text
                        input_params = {
                          name: name,
                          cols: 20,
                          rows: 40
                        }.merge(input_params)
-
 
                        Tag.build("textarea", **input_params) { value }
                      when :select
