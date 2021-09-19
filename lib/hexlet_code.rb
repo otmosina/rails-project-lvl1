@@ -21,11 +21,21 @@ module HexletCode
 
     def input(name, **params)
       value = model.send name
-
+      input_params = params.dup
+      input_params.delete(:as)
+      
       @inner_html += Tag.build("label", for: name) { name.capitalize } if @@input_with_label
       @inner_html += case params[:as]
+                      
                      when :text
-                       Tag.build("textarea", cols: "20", rows: "40", name: name) { value }
+                       input_params = {
+                         name: name,
+                         cols: 20,
+                         rows: 40
+                       }.merge(input_params)
+
+
+                       Tag.build("textarea", **input_params) { value }
                      when :select
                        Tag.build("select", name: name) do
                          params[:collection].inject("") do |result, v|
@@ -43,6 +53,7 @@ module HexletCode
                                       else
                                         { type: "text", value: value, name: name }
                                       end
+                       input_params.merge!(params)
                        input_params.delete(:value) if value.nil?
                        Tag.build("input", **input_params)
                      end
