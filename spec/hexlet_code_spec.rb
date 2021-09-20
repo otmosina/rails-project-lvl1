@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/BlockLength Layout/TrailingEmptyLines
 RSpec.describe HexletCode do
   it "has a version number" do
     expect(HexletCode::VERSION).not_to be nil
@@ -17,12 +18,6 @@ RSpec.describe HexletCode do
     end
 
     context "complex form_for" do
-      before do
-        HexletCode::Form.input_with_label = false
-      end
-      after do
-        HexletCode::Form.input_with_label = true
-      end
       let(:user_struct) { Struct.new(:name, :job, :gender, keyword_init: true) }
       let(:user) { user_struct.new name: "rob", job: "hexlet", gender: "m" }
       let(:form) do
@@ -35,9 +30,11 @@ RSpec.describe HexletCode do
       let(:form_html) do
         html = ""
         html += '<form action="#" method="post">'
-        html += '<input type="text" value="rob" name="name">'
-        html += '<textarea cols="20" rows="40" name="job">hexlet</textarea>'
-
+        html += '<label for="name">Name</label>'
+        html += '<input type="text" name="name" value="rob">'
+        html += '<label for="job">Job</label>'
+        html += '<textarea name="job" cols="20" rows="40">hexlet</textarea>'
+        html += '<label for="gender">Gender</label>'
         html += '<select name="gender">'
         html += '<option value="m" selected>m</option>'
         html += '<option value="f">f</option>'
@@ -47,6 +44,8 @@ RSpec.describe HexletCode do
         html
       end
       it "return correct form" do
+        puts "EXP: #{form_html}"
+        puts "GOT: #{form}"
         expect(form).to eq(form_html)
       end
     end
@@ -76,5 +75,62 @@ RSpec.describe HexletCode do
         expect(form).to eq(form_html)
       end
     end
+
+    context "hexlet specs 0" do
+      let(:user_struct) { Struct.new(:name, :job, keyword_init: true) }
+      let(:user) { user_struct.new name: "rob" }
+      let(:form) do
+        HexletCode.form_for user do |f|
+          f.input :name
+          f.input :job
+          f.submit
+        end
+      end
+      let(:form_html) do
+        html = ""
+        html += '<form action="#" method="post">'
+        html += '<label for="name">Name</label>'
+        html += '<input type="text" name="name" value="rob">'
+        html += '<label for="job">Job</label>'
+        html += '<input type="text" name="job">'
+        html += '<input type="submit" value="Save" name="commit">'
+        html += "</form>"
+        html
+      end
+      it "return correct form" do
+        # puts "EXPECTED: #{form_html}"
+        # puts "GOT: #{form}"
+        expect(form).to eq(form_html)
+      end
+    end
+
+    context "hexlet specs 1" do
+      let(:user_struct) { Struct.new(:name, :job, keyword_init: true) }
+      let(:user) { user_struct.new name: "rob" }
+      let(:form) do
+        HexletCode.form_for user do |f|
+          f.input :name
+          f.input :job
+          f.submit
+        end
+      end
+      let(:form_html) do
+        html = ""
+        html += '<form action="#" method="post">'
+        html += '<label for="name">Name</label>'
+        html += '<input type="text" name="name" value="rob">'
+        html += '<label for="job">Job</label>'
+        html += '<input type="text" name="job">'
+        html += '<input type="submit" value="Save" name="commit">'
+        html += "</form>"
+        html
+      end
+      xit "return correct form" do
+        # puts "EXPECTED: #{form_html}"
+        # puts "GOT: #{form}"
+        expect(form).to eq(form_html)
+      end
+    end
   end
 end
+# rubocop:enable Metrics/BlockLength Layout/TrailingEmptyLines
