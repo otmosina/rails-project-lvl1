@@ -8,10 +8,6 @@ module HexletCode
 
   # class for make form object
   class Form
-    @@input_with_label = true
-    def self.input_with_label=(flag)
-      @@input_with_label = flag
-    end
     attr_reader :model
 
     def initialize(model)
@@ -24,7 +20,7 @@ module HexletCode
       input_params = params.dup
       input_params.delete(:as)
 
-      @inner_html += Tag.build("label", for: name) { name.capitalize } if @@input_with_label
+      @inner_html += Tag.build("label", for: name) { name.capitalize }
       @inner_html += case params[:as]
 
                      when :text
@@ -47,11 +43,7 @@ module HexletCode
                        end
                      else
 
-                       input_params = if @@input_with_label
-                                        { type: "text", name: name, value: value }
-                                      else
-                                        { type: "text", value: value, name: name }
-                                      end
+                       input_params = { type: "text", name: name, value: value }
                        input_params.merge!(params)
                        input_params.delete(:value) if value.nil?
                        Tag.build("input", **input_params)
