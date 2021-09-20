@@ -2,24 +2,24 @@
 
 # rubocop:disable Metrics/BlockLength Layout/TrailingEmptyLines
 RSpec.describe HexletCode do
-  it "has a version number" do
+  it 'has a version number' do
     expect(HexletCode::VERSION).not_to be nil
   end
 
-  it "does something useful" do
+  it 'does something useful' do
     expect(true).to eq(true)
   end
 
-  context ".form_for" do
+  context '.form_for' do
     let(:user) { Struct.new(:name, :job, keyword_init: true) }
-    it "return correct form" do
+    it 'return correct form' do
       expect(described_class.form_for(user)).to eq('<form action="#" method="post"></form>')
-      expect(described_class.form_for(user, url: "/users")).to eq('<form action="/users" method="post"></form>')
+      expect(described_class.form_for(user, url: '/users')).to eq('<form action="/users" method="post"></form>')
     end
 
-    context "complex form_for" do
+    context 'complex form_for' do
       let(:user_struct) { Struct.new(:name, :job, :gender, keyword_init: true) }
-      let(:user) { user_struct.new name: "rob", job: "hexlet", gender: "m" }
+      let(:user) { user_struct.new name: 'rob', job: 'hexlet', gender: 'm' }
       let(:form) do
         HexletCode.form_for user do |f|
           f.input :name
@@ -28,7 +28,7 @@ RSpec.describe HexletCode do
         end
       end
       let(:form_html) do
-        html = ""
+        html = ''
         html += '<form action="#" method="post">'
         html += '<label for="name">Name</label>'
         html += '<input type="text" name="name" value="rob">'
@@ -38,21 +38,19 @@ RSpec.describe HexletCode do
         html += '<select name="gender">'
         html += '<option value="m" selected>m</option>'
         html += '<option value="f">f</option>'
-        html += "</select>"
+        html += '</select>'
 
-        html += "</form>"
+        html += '</form>'
         html
       end
-      it "return correct form" do
-        puts "EXP: #{form_html}"
-        puts "GOT: #{form}"
+      it 'return correct form' do
         expect(form).to eq(form_html)
       end
     end
 
-    context "complex form_for with submit & labels" do
+    context 'complex form_for with submit & labels' do
       let(:user_struct) { Struct.new(:name, :job, keyword_init: true) }
-      let(:user) { user_struct.new job: "hexlet" }
+      let(:user) { user_struct.new job: 'hexlet' }
       let(:form) do
         HexletCode.form_for user do |f|
           f.input :name
@@ -61,73 +59,17 @@ RSpec.describe HexletCode do
         end
       end
       let(:form_html) do
-        html = ""
+        html = ''
         html += '<form action="#" method="post">'
         html += '<label for="name">Name</label>'
         html += '<input type="text" name="name">'
         html += '<label for="job">Job</label>'
         html += '<input type="text" name="job" value="hexlet">'
         html += '<input type="submit" value="Save" name="commit">'
-        html += "</form>"
+        html += '</form>'
         html
       end
-      it "return correct form" do
-        expect(form).to eq(form_html)
-      end
-    end
-
-    context "hexlet specs 0" do
-      let(:user_struct) { Struct.new(:name, :job, keyword_init: true) }
-      let(:user) { user_struct.new name: "rob" }
-      let(:form) do
-        HexletCode.form_for user do |f|
-          f.input :name
-          f.input :job
-          f.submit
-        end
-      end
-      let(:form_html) do
-        html = ""
-        html += '<form action="#" method="post">'
-        html += '<label for="name">Name</label>'
-        html += '<input type="text" name="name" value="rob">'
-        html += '<label for="job">Job</label>'
-        html += '<input type="text" name="job">'
-        html += '<input type="submit" value="Save" name="commit">'
-        html += "</form>"
-        html
-      end
-      it "return correct form" do
-        # puts "EXPECTED: #{form_html}"
-        # puts "GOT: #{form}"
-        expect(form).to eq(form_html)
-      end
-    end
-
-    context "hexlet specs 1" do
-      let(:user_struct) { Struct.new(:name, :job, keyword_init: true) }
-      let(:user) { user_struct.new name: "rob" }
-      let(:form) do
-        HexletCode.form_for user do |f|
-          f.input :name
-          f.input :job
-          f.submit
-        end
-      end
-      let(:form_html) do
-        html = ""
-        html += '<form action="#" method="post">'
-        html += '<label for="name">Name</label>'
-        html += '<input type="text" name="name" value="rob">'
-        html += '<label for="job">Job</label>'
-        html += '<input type="text" name="job">'
-        html += '<input type="submit" value="Save" name="commit">'
-        html += "</form>"
-        html
-      end
-      xit "return correct form" do
-        # puts "EXPECTED: #{form_html}"
-        # puts "GOT: #{form}"
+      it 'return correct form' do
         expect(form).to eq(form_html)
       end
     end
