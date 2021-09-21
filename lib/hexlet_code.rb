@@ -14,7 +14,6 @@ module HexletCode
 
   # class for make form object
   class Form
-    attr_reader :model
 
     def initialize(model)
       @model = model
@@ -22,33 +21,24 @@ module HexletCode
     end
 
     def input(name, **params)
-      value = model.send name
-      as, tag_attributes = handle_params(params)
+      value = @model.send name
+      as_param = params.delete(:as)
 
       @inner_html += Tag.build('label', for: name) { name.capitalize }
-      @inner_html += AsParamMapper.call(as).build(name, value, tag_attributes)
+      @inner_html += AsParamMapper.call(as_param).build(name, value, params)
     end
 
     def submit(value = 'Save')
       @inner_html += Tag.build('input', type: 'submit', value: value, name: 'commit')
-    end
-
-    private
-
-    def handle_params(params)
-      as_param = params[:as]
-      tag_attributes = params.dup
-      tag_attributes.delete(:as)
-      [as_param, tag_attributes]
     end
   end
 
   # class for build input text
   class Textfield
     def self.build(name, value, attritutes = {})
-      tag_attributes = { type: 'text', name: name, value: value }
+      tag_attributes = { type: 'text', name: name }
       tag_attributes.merge!(attritutes)
-      tag_attributes.delete(:value) if value.nil?
+      tag_attributes.merge!({value: value}) unless value.nil?
       Tag.build('input', **tag_attributes)
     end
   end
@@ -65,15 +55,17 @@ module HexletCode
   # class for build input select
   class Select
     def self.build(name, value, attritutes = {})
-      render_options = attritutes[:collection].inject('') do |result, v|
-        result + if value == v
-                   Tag.build('option', value: v, selected: nil) { v }
-                 else
-                   Tag.build('option', value: v) { v }
-                 end
-      end
-      Tag.build('select', name: name) do
-        render_options
+      collection = attritutes.delete(:collection)
+      tag_attributes = { name: name }
+      tag_attributes.merge!(attritutes)
+      Tag.build('select', **tag_attributes) do
+        collection.inject('') do |result, v|
+          result + if value == v
+                     Tag.build('option', value: v, selected: nil) { v }
+                   else
+                     Tag.build('option', value: v) { v }
+                   end
+        end
       end
     end
   end
@@ -82,10 +74,10 @@ module HexletCode
   class Tag
     def self.build(name, **attrs)
       html = "<#{name}"
-      attrs.each_pair do |k, v|
-        html += ' '
-        html += v.nil? ? k.to_s : "#{k}=\"#{v}\""
-      end
+      html += ' ' unless attrs.empty?
+      html += attrs.map do |k, v|
+        v.nil? ? k.to_s : "#{k}=\"#{v}\""
+      end.join(' ')
       html += block_given? ? ">#{yield}</#{name}>" : '>'
     end
   end
