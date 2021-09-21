@@ -77,7 +77,8 @@ module HexletCode
       html += attrs.map do |k, v|
         v.nil? ? k.to_s : "#{k}=\"#{v}\""
       end.join(' ')
-      html + block_given? ? ">#{yield}</#{name}>" : '>'
+      html += block_given? ? ">#{yield}</#{name}>" : '>'
+      html
     end
   end
 
