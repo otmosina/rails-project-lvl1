@@ -14,7 +14,6 @@ module HexletCode
 
   # class for make form object
   class Form
-
     def initialize(model)
       @model = model
       @inner_html = ''
@@ -38,7 +37,7 @@ module HexletCode
     def self.build(name, value, attritutes = {})
       tag_attributes = { type: 'text', name: name }
       tag_attributes.merge!(attritutes)
-      tag_attributes.merge!({value: value}) unless value.nil?
+      tag_attributes.merge!({ value: value }) unless value.nil?
       Tag.build('input', **tag_attributes)
     end
   end
@@ -78,7 +77,7 @@ module HexletCode
       html += attrs.map do |k, v|
         v.nil? ? k.to_s : "#{k}=\"#{v}\""
       end.join(' ')
-      html += block_given? ? ">#{yield}</#{name}>" : '>'
+      html + block_given? ? ">#{yield}</#{name}>" : '>'
     end
   end
 
