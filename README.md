@@ -22,7 +22,20 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Use **HexletCode::Tag.build** for write html tags
+
+`HexletCode::Tag.build('br')` => `<br>`
+
+`HexletCode::Tag.build('img', src: 'path/to/image'))` => `<img src="path/to/image">`
+
+`HexletCode::Tag.build('input', type: 'submit', value: 'Save')` => `<input type="submit" value="Save">`
+
+Pass block as argument to put anything inside tag
+
+`HexletCode::Tag.build('label') { 'Email' })` => `<label>Email</label>`
+
+`HexletCode::Tag.build('label', for: 'email') { 'Email' })` => `<label for="email">Email</label>`
+
 
 ## Development
 
