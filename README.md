@@ -22,6 +22,8 @@ Or install it yourself as:
 
 ## Usage
 
+### HexletCode::Tag.build
+
 Use **HexletCode::Tag.build** for write html tags
 
 `HexletCode::Tag.build('br')` => `<br>`
@@ -35,6 +37,35 @@ Pass block as argument to put anything inside tag
 `HexletCode::Tag.build('label') { 'Email' })` => `<label>Email</label>`
 
 `HexletCode::Tag.build('label', for: 'email') { 'Email' })` => `<label for="email">Email</label>`
+
+### HexletCode.form_for
+
+Use HexletCode.form_for to write html form. Pass object as parameter and block which will be rendered as forms fields
+
+```
+User = Struct.new(:name, :job, :gender, keyword_init: true)
+user = User.new(name: 'rob', job: 'hexlet', gender: 'm')
+HexletCode.form_for user do |f|
+  f.input :name
+  f.input :job, as: :text
+  f.input :gender, as: :select, collection: %w[m f]
+end
+```
+
+=>
+```
+<form action="#" method="post">
+  <label for="name">Name</label>
+  <input type="text" name="name" value="rob">
+  <label for="job">Job</label>
+  <textarea name="job" cols="20" rows="40">hexlet</textarea>
+  <label for="gender">Gender</label>
+  <select name="gender">
+  <option value="m" selected>m</option>
+  <option value="f">f</option>
+  </select>
+</form>
+```
 
 
 ## Development
