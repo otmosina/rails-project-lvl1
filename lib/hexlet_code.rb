@@ -55,15 +55,12 @@ module HexletCode
   class Select
     def self.build(name, value, attritutes = {})
       collection = attritutes.delete(:collection)
-      tag_attributes = { name: name }
-      tag_attributes.merge!(attritutes)
+      tag_attributes = { name: name }.merge!(attritutes)
       Tag.build('select', **tag_attributes) do
         collection.inject('') do |result, v|
-          result + if value == v
-                     Tag.build('option', value: v, selected: nil) { v }
-                   else
-                     Tag.build('option', value: v) { v }
-                   end
+          innter_tag_attrs = { value: v }
+          innter_tag_attrs.merge!({ selected: nil }) if value == v
+          result + Tag.build('option', **innter_tag_attrs) { v }
         end
       end
     end
