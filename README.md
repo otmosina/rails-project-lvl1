@@ -1,5 +1,4 @@
-[![Ruby](https://github.com/otmosina/rails-project-lvl1/actions/workflows/main.yml/badge.svg)](https://github.com/otmosina/rails-project-lvl1/actions/workflows/main.yml)
-[![reviewdog](https://github.com/otmosina/rails-project-lvl1/actions/workflows/reviewdog.yml/badge.svg)](https://github.com/otmosina/rails-project-lvl1/actions/workflows/reviewdog.yml)
+[![Main workflow](https://github.com/otmosina/rails-project-lvl1/actions/workflows/main.yml/badge.svg)](https://github.com/otmosina/rails-project-lvl1/actions/workflows/main.yml)
 [![hexlet-check](https://github.com/otmosina/rails-project-lvl1/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/otmosina/rails-project-lvl1/actions/workflows/hexlet-check.yml)
 
 # HexletCode
