@@ -22,6 +22,10 @@ And then execute:
 Or install it yourself as:
 
     $ gem install hexlet_code
+    
+For local development you must have ruby >= 3.0.1 and just run
+
+    $ make up
 
 ## Usage
 
