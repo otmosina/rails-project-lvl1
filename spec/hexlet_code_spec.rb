@@ -24,20 +24,7 @@ RSpec.describe HexletCode do
         end
       end
       let(:form_html) do
-        html = ''
-        html += '<form action="#" method="post">'
-        html += '<label for="name">Name</label>'
-        html += '<input type="text" name="name" value="rob">'
-        html += '<label for="job">Job</label>'
-        html += '<textarea name="job" cols="20" rows="40">hexlet</textarea>'
-        html += '<label for="gender">Gender</label>'
-        html += '<select name="gender">'
-        html += '<option value="m" selected>m</option>'
-        html += '<option value="f">f</option>'
-        html += '</select>'
-
-        html += '</form>'
-        html
+        File.read("spec/fixtures/files/forms/form_no_submit.html").gsub("\n",'')
       end
       it 'return correct form' do
         expect(form).to eq(form_html)
@@ -55,15 +42,7 @@ RSpec.describe HexletCode do
         end
       end
       let(:form_html) do
-        html = ''
-        html += '<form action="#" method="post">'
-        html += '<label for="name">Name</label>'
-        html += '<input type="text" name="name">'
-        html += '<label for="job">Job</label>'
-        html += '<input type="text" name="job" value="hexlet">'
-        html += '<input type="submit" value="Save" name="commit">'
-        html += '</form>'
-        html
+        File.read("spec/fixtures/files/forms/form_with_submit.html").gsub("\n",'')
       end
       it 'return correct form' do
         expect(form).to eq(form_html)
