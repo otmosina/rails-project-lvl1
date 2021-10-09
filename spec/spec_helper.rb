@@ -6,7 +6,7 @@ Bundler.require
 
 require 'hexlet_code'
 
-Dir['./spec/support/*'].sort.each { |f| require f }
+Dir['./spec/support/*'].each { |f| require f }
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

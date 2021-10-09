@@ -37,7 +37,7 @@ module HexletCode
     end
 
     def render
-      @tags.join('')
+      @tags.join
     end
   end
 
