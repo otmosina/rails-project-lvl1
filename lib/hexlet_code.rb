@@ -5,6 +5,9 @@ require_relative 'hexlet_code/version'
 # module simple for html generation
 module HexletCode
   class Error < StandardError; end
+  autoload :Textfield, './lib/hexlet_code/textfield.rb'
+  autoload :Text, './lib/hexlet_code/text.rb'
+  autoload :Select, './lib/hexlet_code/select.rb'
 
   def self.form_for(model, url: '#')
     Tag.build('form', action: url, method: 'post') do
@@ -21,48 +24,15 @@ module HexletCode
 
     def input(name, **params)
       value = @model.send name
-      as_param = params.delete(:as)
+      as_param = params.delete(:as) || 'Textfield'
+      as_param = as_param.downcase.capitalize
 
       @inner_html += Tag.build('label', for: name) { name.capitalize }
-      @inner_html += AsParamMapper.call(as_param).build(name, value, params)
+      @inner_html += HexletCode.const_get(as_param).build(name, value, params)
     end
 
     def submit(value = 'Save')
       @inner_html += Tag.build('input', type: 'submit', value: value, name: 'commit')
-    end
-  end
-
-  # class for build input text
-  class Textfield
-    def self.build(name, value, attritutes = {})
-      tag_attributes = { type: 'text', name: name }
-      tag_attributes.merge!(attritutes)
-      tag_attributes.merge!({ value: value }) unless value.nil?
-      Tag.build('input', **tag_attributes)
-    end
-  end
-
-  # class for build input textarea
-  class Textarea
-    def self.build(name, value, attritutes = {})
-      tag_attributes = { name: name, cols: 20, rows: 40 }
-      tag_attributes.merge!(attritutes)
-      Tag.build('textarea', **tag_attributes) { value }
-    end
-  end
-
-  # class for build input select
-  class Select
-    def self.build(name, value, attritutes = {})
-      collection = attritutes.delete(:collection)
-      tag_attributes = { name: name }.merge!(attritutes)
-      Tag.build('select', **tag_attributes) do
-        collection.inject('') do |result, v|
-          innter_tag_attrs = { value: v }
-          innter_tag_attrs.merge!({ selected: nil }) if value == v
-          result + Tag.build('option', **innter_tag_attrs) { v }
-        end
-      end
     end
   end
 
@@ -76,18 +46,6 @@ module HexletCode
       end.join(' ')
       html += block_given? ? ">#{yield}</#{name}>" : '>'
       html
-    end
-  end
-
-  # class to map as param to class
-  class AsParamMapper
-    MAP = {
-      text: Textarea,
-      select: Select,
-      nil => Textfield
-    }.freeze
-    def self.call(as_value)
-      MAP[as_value]
     end
   end
 end
