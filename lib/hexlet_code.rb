@@ -11,7 +11,7 @@ module HexletCode
 
   def self.form_for(model, url: '#')
     Tag.build('form', action: url, method: 'post') do
-      yield(Form.new(model)) if block_given?
+      yield(Form.new(model)).render if block_given?
     end
   end
 
@@ -19,20 +19,25 @@ module HexletCode
   class Form
     def initialize(model)
       @model = model
-      @inner_html = ''
+      @tags = []
     end
 
     def input(name, **params)
       value = @model.send name
-      as_param = params.delete(:as) || 'Textfield'
-      as_param = as_param.downcase.capitalize
+      as_param = (params.delete(:as) || 'Textfield').downcase.capitalize
 
-      @inner_html += Tag.build('label', for: name) { name.capitalize }
-      @inner_html += HexletCode.const_get(as_param).build(name, value, params)
+      @tags << Tag.build('label', for: name) { name.capitalize }
+      @tags << HexletCode.const_get(as_param).build(name, value, params)
+      self
     end
 
     def submit(value = 'Save')
-      @inner_html += Tag.build('input', type: 'submit', value: value, name: 'commit')
+      @tags << Tag.build('input', type: 'submit', value: value, name: 'commit')
+      self
+    end
+
+    def render
+      @tags.join("")
     end
   end
 

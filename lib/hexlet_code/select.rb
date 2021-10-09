@@ -3,7 +3,6 @@
 module HexletCode
   # class for build input select
   class Select
-    puts 'LOAD SELECT....'
     def self.build(name, value, attritutes = {})
       collection = attritutes.delete(:collection)
       tag_attributes = { name: name }.merge!(attritutes)
