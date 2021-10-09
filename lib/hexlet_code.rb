@@ -37,13 +37,13 @@ module HexletCode
     end
 
     def render
-      @tags.join("")
+      @tags.join('')
     end
   end
 
   # Class to generate html tags
   class Tag
-    class  << self
+    class << self
       def build(name, **attrs)
         if block_given?
           "<#{name}#{render_tag_attrs(attrs)}>#{yield}</#{name}>"
@@ -54,11 +54,11 @@ module HexletCode
 
       private
 
-      def render_tag_attrs attrs
+      def render_tag_attrs(attrs)
         if attrs.any?
-          " " + attrs.map{ |k,v| v.nil? ? k.to_s : "#{k}=\"#{v}\"" }.join(' ')
+          " #{attrs.map { |k, v| v.nil? ? k.to_s : "#{k}=\"#{v}\"" }.join(' ')}"
         else
-          ""
+          ''
         end
       end
     end
