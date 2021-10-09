@@ -5,9 +5,9 @@ require_relative 'hexlet_code/version'
 # module simple for html generation
 module HexletCode
   class Error < StandardError; end
-  autoload :Textfield, './lib/hexlet_code/textfield.rb'
-  autoload :Text, './lib/hexlet_code/text.rb'
-  autoload :Select, './lib/hexlet_code/select.rb'
+  autoload :Textfield, 'hexlet_code/textfield.rb'
+  autoload :Text, 'hexlet_code/text.rb'
+  autoload :Select, 'hexlet_code/select.rb'
 
   def self.form_for(model, url: '#')
     Tag.build('form', action: url, method: 'post') do
