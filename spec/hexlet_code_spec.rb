@@ -24,7 +24,7 @@ RSpec.describe HexletCode do
         end
       end
       let(:form_html) do
-        File.read('spec/fixtures/files/forms/form_no_submit.html').gsub("\n", '')
+        read_html_file('form_no_submit.html')
       end
       it 'return correct form' do
         expect(form).to eq(form_html)
@@ -42,7 +42,7 @@ RSpec.describe HexletCode do
         end
       end
       let(:form_html) do
-        File.read('spec/fixtures/files/forms/form_with_submit.html').gsub("\n", '')
+        read_html_file('form_with_submit.html')
       end
       it 'return correct form' do
         expect(form).to eq(form_html)
