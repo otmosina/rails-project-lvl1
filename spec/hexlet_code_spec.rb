@@ -8,9 +8,11 @@ RSpec.describe HexletCode do
 
   context '.form_for' do
     let(:user) { Struct.new(:name, :job, keyword_init: true) }
+    let(:simplest_form) { read_html_file('simplest_form.html') }
+    let(:simplest_form_with_action) { read_html_file('simplest_form_with_action.html') }
     it 'return correct form' do
-      expect(described_class.form_for(user)).to eq('<form action="#" method="post"></form>')
-      expect(described_class.form_for(user, url: '/users')).to eq('<form action="/users" method="post"></form>')
+      expect(described_class.form_for(user)).to eq(simplest_form)
+      expect(described_class.form_for(user, url: '/users')).to eq(simplest_form_with_action)
     end
 
     context 'complex form_for' do
