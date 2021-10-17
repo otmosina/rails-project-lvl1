@@ -8,6 +8,7 @@ module HexletCode
   autoload :Textfield, 'hexlet_code/textfield.rb'
   autoload :Text, 'hexlet_code/text.rb'
   autoload :Select, 'hexlet_code/select.rb'
+  autoload :Tag, 'hexlet_code/tag.rb'
 
   def self.form_for(model, url: '#')
     Tag.build('form', action: url, method: 'post') do
@@ -38,29 +39,6 @@ module HexletCode
 
     def render
       @tags.join
-    end
-  end
-
-  # Class to generate html tags
-  class Tag
-    class << self
-      def build(name, **attrs)
-        if block_given?
-          "<#{name}#{render_tag_attrs(attrs)}>#{yield}</#{name}>"
-        else
-          "<#{name}#{render_tag_attrs(attrs)}>"
-        end
-      end
-
-      private
-
-      def render_tag_attrs(attrs)
-        if attrs.any?
-          " #{attrs.map { |k, v| v.nil? ? k.to_s : "#{k}=\"#{v}\"" }.join(' ')}"
-        else
-          ''
-        end
-      end
     end
   end
 end
