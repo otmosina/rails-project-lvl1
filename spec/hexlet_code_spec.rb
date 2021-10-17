@@ -8,8 +8,8 @@ RSpec.describe HexletCode do
 
   context '.form_for' do
     let(:user) { Struct.new(:name, :job, keyword_init: true) }
-    let(:simplest_form) { read_html_file('simplest_form.html') }
-    let(:simplest_form_with_action) { read_html_file('simplest_form_with_action.html') }
+    let(:simplest_form) { read_fixture_file('simplest_form.html') }
+    let(:simplest_form_with_action) { read_fixture_file('simplest_form_with_action.html') }
     it 'return correct form' do
       expect(described_class.form_for(user)).to eq(simplest_form)
       expect(described_class.form_for(user, url: '/users')).to eq(simplest_form_with_action)
@@ -26,7 +26,7 @@ RSpec.describe HexletCode do
         end
       end
       let(:form_html) do
-        read_html_file('form_no_submit.html')
+        read_fixture_file('form_no_submit.html')
       end
       it 'return correct form' do
         expect(form).to eq(form_html)
@@ -44,7 +44,7 @@ RSpec.describe HexletCode do
         end
       end
       let(:form_html) do
-        read_html_file('form_with_submit.html')
+        read_fixture_file('form_with_submit.html')
       end
       it 'return correct form' do
         expect(form).to eq(form_html)
