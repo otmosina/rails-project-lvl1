@@ -16,7 +16,14 @@ module HexletCode
 
       def render_tag_attrs(attrs)
         return '' if attrs.empty?
-        " #{attrs.map { |k, v| v.nil? ? k.to_s : "#{k}=\"#{v}\"" }.join(' ')}"
+
+        attrs.reduce('') do |html, (k, v)|
+          html + if v.nil?
+                   %( #{k})
+                 else
+                   %( #{k}="#{v}")
+                 end
+        end
       end
     end
   end
