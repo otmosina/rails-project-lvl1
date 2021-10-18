@@ -10,7 +10,7 @@ module HexletCode
         Tag.build('select', **tag_attributes) do
           collection.inject('') do |result, v|
             innter_tag_attrs = { value: v }
-            innter_tag_attrs.merge!({ selected: nil }) if value == v
+            innter_tag_attrs.merge!({ selected: '' }) if value == v
             result + Tag.build('option', **innter_tag_attrs) { v }
           end
         end
