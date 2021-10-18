@@ -2,7 +2,7 @@
 
 module HexletCode
   module Inputs
-  # class for build input text
+    # class for build input text
     class Textfield
       def self.build(name, value, attritutes = {})
         tag_attributes = { type: 'text', name: name }

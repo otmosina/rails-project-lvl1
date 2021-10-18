@@ -2,7 +2,7 @@
 
 module HexletCode
   module Inputs
-  # class for build input select
+    # class for build input select
     class Select
       def self.build(name, value, attritutes = {})
         collection = attritutes.delete(:collection)
