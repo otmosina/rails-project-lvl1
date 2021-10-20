@@ -9,9 +9,9 @@ module HexletCode
         tag_attributes = { name: name }.merge!(attritutes)
         Tag.build('select', **tag_attributes) do
           collection.inject('') do |result, v|
-            inter_tag_attrs = { value: v }
-            inter_tag_attrs.merge!({ selected: '' }) if value == v
-            result + Tag.build('option', **innter_tag_attrs) { v }
+            inner_tag_attrs = { value: v }
+            inner_tag_attrs.merge!({ selected: '' }) if value == v
+            result + Tag.build('option', **inner_tag_attrs) { v }
           end
         end
       end

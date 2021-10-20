@@ -24,12 +24,9 @@ module HexletCode
 
         attrs.reduce('') do |html, (k, v)|
           return html if v.nil?
+          return html + %( #{k}) if v.to_s.empty?
 
-          html + if v.to_s.empty?
-                   %( #{k})
-                 else
-                   %( #{k}="#{v}")
-                 end
+          html + %( #{k}="#{v}")
         end
       end
     end
