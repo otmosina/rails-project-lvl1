@@ -4,7 +4,6 @@ require_relative 'hexlet_code/version'
 
 # module simple for html generation
 module HexletCode
-  class Error < StandardError; end
   autoload :Tag, 'hexlet_code/tag.rb'
   autoload :Inputs, 'hexlet_code/inputs.rb'
 
