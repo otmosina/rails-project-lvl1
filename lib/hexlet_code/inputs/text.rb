@@ -6,9 +6,9 @@ module HexletCode
     class Text
       class << self
         def build(name, value, attritutes = {})
-          @tag_attributes = { name: name, cols: 20, rows: 40 }
-          @tag_attributes.merge!(attritutes)
-          Tag.build('textarea', **@tag_attributes) { value }
+          tag_attributes = { name: name, cols: 20, rows: 40 }
+          tag_attributes.merge!(attritutes)
+          Tag.build('textarea', **tag_attributes) { value }
         end
       end
     end

@@ -22,7 +22,6 @@ RSpec.describe HexletCode do
         HexletCode.form_for user do |f|
           f.input :name
           f.input :job, as: :text
-          f.input :gender, as: :select, collection: %w[m f]
         end
       end
       let(:form_html) do
