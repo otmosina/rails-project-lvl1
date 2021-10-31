@@ -22,7 +22,7 @@ module HexletCode
       def render_tag_attrs(attrs)
         return '' if attrs.empty?
 
-        attrs.map { |k, v| %( #{k}="#{v}") }.join('')
+        attrs.map { |k, v| %( #{k}="#{v}") }.join
       end
     end
   end
