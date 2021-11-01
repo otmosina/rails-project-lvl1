@@ -5,24 +5,30 @@ module HexletCode
   class Tag
     class << self
       VOID_TAGS = %(area, base, br, col, embed, hr, img, input, link, meta, param, source, track, wbr)
-      def build(name, **attrs)
-        if void_tag?(name)
+      def build(name, **attrs, &block)
+        attrs = prepare_attrs(attrs)
+        unless void_tag?(block)
           "<#{name}#{render_tag_attrs(attrs)}>"
         else
-          "<#{name}#{render_tag_attrs(attrs)}>#{yield}</#{name}>"
+          "<#{name}#{render_tag_attrs(attrs)}>#{block.call}</#{name}>"
         end
       end
 
       private
 
-      def void_tag?(name)
-        VOID_TAGS.include? name
+      def prepare_attrs attrs
+        attrs.delete(:value) unless attrs[:value]
+        attrs = attrs.map { |k, v| %( #{k}="#{v}") }
+        attrs
+      end
+
+      def void_tag?(block)
+        !!block
+        #VOID_TAGS.include? name
       end
 
       def render_tag_attrs(attrs)
-        return '' if attrs.empty?
-
-        attrs.map { |k, v| %( #{k}="#{v}") }.join
+        attrs.join
       end
     end
   end
