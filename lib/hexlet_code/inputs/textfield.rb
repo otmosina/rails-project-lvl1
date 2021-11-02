@@ -6,8 +6,7 @@ module HexletCode
     class Textfield
       class << self
         def build(name, value, attritutes = {})
-          tag_attributes = { type: 'text', name: name, value: value }
-          tag_attributes.merge!(attritutes)
+          tag_attributes = { type: 'text', name: name, value: value, **attritutes }
           Tag.build('input', **tag_attributes)
         end
       end

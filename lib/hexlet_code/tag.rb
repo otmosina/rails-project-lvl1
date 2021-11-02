@@ -4,13 +4,13 @@ module HexletCode
   # Class to generate html tags
   class Tag
     class << self
-      VOID_TAGS = %(area, base, br, col, embed, hr, img, input, link, meta, param, source, track, wbr)
+      # VOID_TAGS = %(area, base, br, col, embed, hr, img, input, link, meta, param, source, track, wbr)
       def build(name, **attrs, &block)
         attrs = prepare_attrs(attrs)
         if void_tag?(block)
-          "<#{name}#{render_tag_attrs(attrs)}>#{block.call}</#{name}>"
-        else
           "<#{name}#{render_tag_attrs(attrs)}>"
+        else
+          "<#{name}#{render_tag_attrs(attrs)}>#{block.call}</#{name}>"
         end
       end
 
@@ -22,7 +22,7 @@ module HexletCode
       end
 
       def void_tag?(block)
-        !!block
+        !block
         # VOID_TAGS.include? name
       end
 
