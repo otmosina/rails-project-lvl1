@@ -5,7 +5,6 @@ module HexletCode
   class Tag
     class << self
       def build(name, **attrs, &block)
-        attrs = prepare_attrs(attrs)
         if paired_tag?(block)
           "<#{name}#{render_tag_attrs(attrs)}>#{block.call}</#{name}>"
         else
@@ -15,17 +14,12 @@ module HexletCode
 
       private
 
-      def prepare_attrs(attrs)
-        attrs.delete(:value) unless attrs[:value]
-        attrs.map { |k, v| %( #{k}="#{v}") }
-      end
-
       def paired_tag?(block)
         !!block
       end
 
       def render_tag_attrs(attrs)
-        attrs.join
+        attrs.map { |k, v| %( #{k}="#{v}") }.join
       end
     end
   end
